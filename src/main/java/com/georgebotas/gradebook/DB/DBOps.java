@@ -19,7 +19,6 @@ public class DBOps implements IDBOps {
     public EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
     public EntityTransaction transaction;
 
-    @Override
     public boolean validateStudentID(Long student_ID) {
         Student student = manager.find(Student.class, student_ID);
         if (student== null) {
@@ -28,7 +27,6 @@ public class DBOps implements IDBOps {
         return true;
     }
 
-    @Override
     public boolean validateGradeID(Long grades_ID) {
         Grades grades = manager.find(Grades.class, grades_ID);
         if (grades== null) {
@@ -37,7 +35,6 @@ public class DBOps implements IDBOps {
         return true;
     }
 
-    @Override
     public ArrayList<Student> studentList() {
         ArrayList<Student> students = null;
         transaction = manager.getTransaction();
@@ -47,7 +44,6 @@ public class DBOps implements IDBOps {
         return students;
     }
 
-    @Override
     public void createStudent(String studentName, Integer studentGender, String studentClass) {
         transaction = manager.getTransaction();
         transaction.begin();
@@ -59,7 +55,6 @@ public class DBOps implements IDBOps {
         transaction.commit();
     }
 
-    @Override
     public void editName(Long student_ID, String studentName) {
         transaction = manager.getTransaction();
         transaction.begin();
@@ -69,7 +64,6 @@ public class DBOps implements IDBOps {
         transaction.commit();
     }
 
-    @Override
     public void editGender(Long student_ID, Integer studentGender) {
         transaction = manager.getTransaction();
         transaction.begin();
@@ -79,7 +73,6 @@ public class DBOps implements IDBOps {
         transaction.commit();
     }
 
-    @Override
     public void editClass(Long student_ID, String studentClass) {
         transaction = manager.getTransaction();
         transaction.begin();
@@ -89,7 +82,6 @@ public class DBOps implements IDBOps {
         transaction.commit();
     }
 
-    @Override
     public void deleteStudent(Long student_ID) {
         transaction = manager.getTransaction();
         transaction.begin();
@@ -98,7 +90,6 @@ public class DBOps implements IDBOps {
         transaction.commit();
     }
 
-    @Override
     public void addGrade(Long student_ID, Integer grade, String subject) {
         transaction = manager.getTransaction();
         transaction.begin();
@@ -112,7 +103,6 @@ public class DBOps implements IDBOps {
         transaction.commit();
     }
 
-    @Override
     public void editGrade(Long student_ID, Long grade_ID, Integer grade) {
         transaction = manager.getTransaction();
         transaction.begin();
@@ -125,7 +115,6 @@ public class DBOps implements IDBOps {
         transaction.commit();
     }
 
-    @Override
     public void removeGrade(Long student_ID, Long grade_ID) {
         transaction = manager.getTransaction();
         transaction.begin();

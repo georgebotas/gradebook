@@ -1,6 +1,7 @@
 package com.georgebotas.gradebook.DB;
 
 import com.georgebotas.gradebook.Model.Student;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 

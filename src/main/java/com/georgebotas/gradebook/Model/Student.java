@@ -2,18 +2,11 @@ package com.georgebotas.gradebook.Model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
 public class Student {
-
-    public Student() { }
-
-    public Student(String studentName, Integer studentGender, String studentClass) {
-        this.studentName = studentName;
-        this.studentGender = studentGender;
-        this.studentClass = studentClass;
-    }
 
     private String studentName;
     private Integer studentGender;
@@ -23,8 +16,16 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long student_id;
 
-    //@OneToMany(mappedBy="student")
-   //private ArrayList<Grades>grades = new ArrayList<Grades>();
+    @OneToMany(mappedBy="student")
+    private List<Grades> grades = new ArrayList<Grades>();
+
+    public Student() { }
+
+    public Student(String studentName, Integer studentGender, String studentClass) {
+        this.studentName = studentName;
+        this.studentGender = studentGender;
+        this.studentClass = studentClass;
+    }
 
     public String getStudentName() { return studentName; }
 
@@ -52,7 +53,11 @@ public class Student {
         this.student_id = student_id;
     }
 
-    //public ArrayList<Grades> getGrades() { return grades; }
+    public List<Grades> getGrades() {
+        return grades;
+    }
 
-    //public void setGrades(ArrayList<Grades> grades) { this.grades = grades; }
+    public void setGrades(List<Grades> grades) {
+        this.grades = grades;
+    }
 }

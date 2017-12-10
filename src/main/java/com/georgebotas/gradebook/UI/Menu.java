@@ -24,7 +24,6 @@ public class Menu implements IMenu {
     private int userSelect;
     private static final Scanner SCAN = new Scanner(System.in);
 
-    @Override
     public void select() {
 
         Print.mainMenu();
@@ -91,7 +90,10 @@ public class Menu implements IMenu {
                 Print.editName();
                 SCAN.nextLine();
                 userString = SCAN.nextLine();
-                validate_string(userString);
+                while (!UserInputValidator.validateUserString(userString)) {
+                    Print.invalidString();
+                    userString = SCAN.nextLine();
+                }
                 igradebook.editName(studentID, userString);
                 logger.info("THE STUDENT'S NAME WITH THE ID '" + studentID + "' HAS CHANGED TO '" + userString + "'.");
                 break;
@@ -99,14 +101,21 @@ public class Menu implements IMenu {
                 Print.editGender();
                 userInt = SCAN.nextInt();
                 SCAN.nextLine();
-                validateGender(userInt);
+                while (userInt != 0 && userInt != 1) {
+                    Print.invalidNumber();
+                    userInt = SCAN.nextInt();
+                    SCAN.nextLine();
+                }
                 igradebook.editGender(studentID, userInt);
                 logger.info("THE STUDENT'S GENDER WITH THE ID '" + studentID + "' HAS CHANGED TO '" + (userInt == 0 ? "MALE" : "FEMALE") + "'.");
                 break;
             case 3:
                 Print.editClass();
                 userString = SCAN.nextLine();
-                validate_string(userString);
+                while (!UserInputValidator.validateUserString(userString)) {
+                    Print.invalidString();
+                    userString = SCAN.nextLine();
+                }
                 igradebook.editClass(studentID, userString);
                 logger.info("THE STUDENT'S CLASS WITH THE ID '" + studentID + "HAS CHANGED TO '" + userString + "'.");
                 break;
@@ -152,29 +161,6 @@ public class Menu implements IMenu {
         }
     }
 
-    private void validate_int(int userInt) {
-        while (!UserInputValidator.validateUserInt(userInt)) {
-            Print.invalidNumber();
-            userInt = SCAN.nextInt();
-            SCAN.nextLine();
-        }
-    }
-
-    private void validate_string(String userString) {
-        while (!UserInputValidator.validateUserString(userString)) {
-            Print.invalidString();
-            userString = SCAN.nextLine();
-        }
-    }
-
-    private void validateGender(Integer studentGender) {
-        while (studentGender != 0 && studentGender != 1) {
-            Print.invalidNumber();
-            studentGender = SCAN.nextInt();
-            SCAN.nextLine();
-        }
-    }
-
     private void showGradeBook() {
         logger.info("ATTEMPTING TO LIST THE GRADEBOOK.");
         igradebook.showGradeBook();
@@ -200,7 +186,10 @@ public class Menu implements IMenu {
         }
         Print.enterSubject();
         String subject = SCAN.nextLine();
-        validate_string(subject);
+        while (!UserInputValidator.validateUserString(subject)) {
+            Print.invalidString();
+            subject = SCAN.nextLine();
+        }
         logger.info("THE STUDENT WITH THE ID '" + studentID + "' FOR THE SUBJECT " + subject + " HAS BEEN SELECTED FOR GRADE ASSIGNMENT.");
         Print.addGrade();
         igradebook.addGrade(studentID, grade, subject);
@@ -264,36 +253,46 @@ public class Menu implements IMenu {
     }
 
     private void create() {
-            String studentName;
-            Integer studentGender;
-            String studentClass;
-            logger.info("ATTEMPTING student CREATION. USER INPUT EXPECTED.");
-            Print.createName();
+        String studentName;
+        Integer studentGender;
+        String studentClass;
+        logger.info("ATTEMPTING STUDENT CREATION. USER INPUT EXPECTED.");
+        Print.createName();
+        studentName = SCAN.nextLine();
+        while (!UserInputValidator.validateUserString(studentName)) {
+            Print.invalidString();
             studentName = SCAN.nextLine();
-            validate_string(studentName);
-            Print.selectGender();
+        }
+        Print.selectGender();
+        studentGender = SCAN.nextInt();
+        SCAN.nextLine();
+        while (studentGender != 0 && studentGender != 1) {
+            Print.invalidNumber();
             studentGender = SCAN.nextInt();
             SCAN.nextLine();
-            validateGender(studentGender);
-            Print.createClass();
+        }
+        Print.createClass();
+        studentClass = SCAN.nextLine();
+        while (!UserInputValidator.validateUserString(studentClass)) {
+            Print.invalidString();
             studentClass = SCAN.nextLine();
-            SCAN.nextLine();
-            igradebook.createStudent(studentName, studentGender, studentClass);
-            logger.info("STUDENT WITH THE NAME '" + studentName + "', GENDER '" + studentGender + "' AND CLASS '" + studentClass + "' HAS BEEN SUCCESSFULLY CREATED.");
-            select();
+        }
+        igradebook.createStudent(studentName, studentGender, studentClass);
+        logger.info("STUDENT WITH THE NAME '" + studentName + "', GENDER '" + studentGender + "' AND CLASS '" + studentClass + "' HAS BEEN SUCCESSFULLY CREATED.");
+        select();
     }
 
     private void delete() {
-            Print.studentDelete();
+        Print.studentDelete();
+        studentID = SCAN.nextLong();
+        while (!igradebook.validateStudentID(studentID)) {
+            Print.invalidID();
             studentID = SCAN.nextLong();
-            while (!igradebook.validateStudentID(studentID)) {
-                Print.invalidID();
-                studentID = SCAN.nextLong();
-                SCAN.nextLine();
-            }
-            logger.info("THE STUDENT WITH THE ID '" + studentID + "' HAS BEEN SELECTED FOR REMOVAL.");
-            igradebook.deleteStudent(studentID);
-            logger.info("THE STUDENT WITH THE ID '" + studentID + "' HAS BEEN SUCCESSFULLY REMOVED.");
-            select();
+            SCAN.nextLine();
+        }
+        logger.info("THE STUDENT WITH THE ID '" + studentID + "' HAS BEEN SELECTED FOR REMOVAL.");
+        igradebook.deleteStudent(studentID);
+        logger.info("THE STUDENT WITH THE ID '" + studentID + "' HAS BEEN SUCCESSFULLY REMOVED.");
+        select();
     }
 }
