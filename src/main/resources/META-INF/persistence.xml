@@ -7,6 +7,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- Entity classes -->
         <class>com.georgebotas.gradebook.Model.Student</class>
+        <class>com.georgebotas.gradebook.Model.Subject</class>
         <class>com.georgebotas.gradebook.Model.Grades</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />

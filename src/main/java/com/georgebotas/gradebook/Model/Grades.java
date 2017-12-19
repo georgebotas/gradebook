@@ -6,33 +6,32 @@ import javax.persistence.*;
 @Table(name = "grades")
 public class Grades {
 
-    private String subject;
+    private Long grade_id;
     private Integer grade;
     private Integer subjectAverage;
     private Integer generalAverage;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long grade_id;
-
-    @ManyToOne
-    //@JoinColumn(name = "student_id")
-    private Student student;
+    private Subject subject;
 
     public Grades() {
     }
 
-    public Grades(String subject, Integer grade) {
-        this.subject = subject;
+    public Grades(Integer grade) {
         this.grade = grade;
     }
 
-    public String getSubject() {
-        return subject;
+    public Grades(Integer grade, Subject subject) {
+        this.grade = grade;
+        this.subject = subject;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getGrade_id() {
+        return grade_id;
+    }
+
+    public void setGrade_id(Long grade_id) {
+        this.grade_id = grade_id;
     }
 
     public Integer getGrade() {
@@ -59,20 +58,13 @@ public class Grades {
         this.generalAverage = generalAverage;
     }
 
-    public Long getGrade_id() {
-        return grade_id;
+    @ManyToOne
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setGrade_id(Long grade_id) {
-        this.grade_id = grade_id;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 }
 

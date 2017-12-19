@@ -1,13 +1,14 @@
 package com.georgebotas.gradebook.Middleware;
 
 import com.georgebotas.gradebook.DB.IDBOps;
+import com.georgebotas.gradebook.Model.Grades;
 import com.georgebotas.gradebook.Model.Student;
+import com.georgebotas.gradebook.Model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.List;
 
 @Component
 public class GradeBook implements IGradeBook {
@@ -17,22 +18,15 @@ public class GradeBook implements IGradeBook {
 
     public GradeBook() { }
 
-    
     public boolean validateStudentID(Long student_ID) { return idbops.validateStudentID(student_ID); }
+
+    public boolean validateSubjectID(Long subject_ID) { return idbops.validateSubjectID(subject_ID); }
 
     public boolean validateGradeID(Long grade_ID) { return idbops.validateGradeID(grade_ID); }
 
-    public void showGradeBook(){
-        ArrayList<Student> students = idbops.studentList();
-        int count = 0;
-        System.out.printf("%-10s %-21s %-21s %-21s %-21s \n", "STUDENT ID:", "NAME:", "GENDER:", "CLASS:", "AVERAGE:");
-        for (Student student : students) {
-            System.out.printf("%d. %-12s %-21s %-21s %-21s %-21s \n", count + 1, student.getStudent_id(), student.getStudentName(), student.getStudentGender() == 0? "MALE" : "FEMALE" ,
-                    student.getStudentClass(), student.getGrades());
-            count++;
-        }
-        System.out.println();
-    }
+    public ArrayList<Student> showGradeBook(){ return idbops.studentList(); }
+
+    public ArrayList<Subject> subjectList(){ return idbops.subjectList(); }
 
     public void createStudent(String studentName, Integer studentGender, String studentClass) { idbops.createStudent(studentName, studentGender, studentClass); }
 
@@ -44,86 +38,24 @@ public class GradeBook implements IGradeBook {
 
     public void deleteStudent(Long student_ID) { idbops.deleteStudent(student_ID); }
 
-    public void addGrade(Long student_ID, Integer grade, String subject) { idbops.addGrade(student_ID, grade, subject);}
+    public void createSubject(String subjectName) { idbops.createSubject(subjectName);}
 
-    public void editGrade(Long student_ID, Long grade_ID, Integer grade) { idbops.editGrade(student_ID, grade_ID ,grade);}
+    public void deleteSubject(Long subject_ID) { idbops.deleteSubject(subject_ID); }
 
-    public void removeGrade(Long student_ID, Long grade_ID) { idbops.removeGrade(student_ID, grade_ID);}
+    public void addGrade(Long student_ID, Integer subject_Index, Integer grade) { idbops.addGrade(student_ID, subject_Index, grade);}
 
-    public void sortStudentsName() {
+    public void editGrade(Long student_ID, Long subject_ID, Long grade_ID, Integer grade) { idbops.editGrade(student_ID, subject_ID, grade_ID ,grade);}
 
-        ArrayList<Student> students = idbops.studentList();
-        int count = 0;
-        Collections.sort(students, new Comparator<Student>() {
-            public int compare(Student s1, Student s2) {
-                return s1.getStudentName().compareTo(s2.getStudentName());
-            }
-        });
-        System.out.printf("%-10s %-21s %-21s %-21s %-21s \n", "STUDENT ID:", "NAME:", "GENDER:", "CLASS:", "GRADES:");
-        for (Student student : students) {
-            System.out.printf("%d. %-12s %-21s %-21s %-21s %s \n", count + 1, student.getStudent_id(), student.getStudentName(), student.getStudentGender() == 0? "MALE" : "FEMALE" ,
-                    student.getStudentClass()); //student.getGrades());
-            count++;
-        }
-        System.out.println();
-    }
+    public void removeGrade(Long student_ID, Long subject_ID, Long grade_ID) { idbops.removeGrade(student_ID, subject_ID, grade_ID);}
 
-    public void sortStudentsGender() {
+    public List<Grades> showGrades(Long student_ID){return idbops.showGrades(student_ID);}
 
-        ArrayList<Student> students = idbops.studentList();
-        int count = 0;
-        Collections.sort(students, new Comparator<Student>() {
-            public int compare(Student s1, Student s2) {
-                return s1.getStudentGender() - s2.getStudentGender();
-            }
-        });
-        System.out.printf("%-10s %-21s %-21s %-21s %-21s \n", "STUDENT ID:", "NAME:", "GENDER:", "CLASS:", "GRADES:");
-        for (Student student : students) {
-            System.out.printf("%d. %-12s %-21s %-21s %-21s %s \n", count + 1, student.getStudent_id(), student.getStudentName(), student.getStudentGender() == 0? "MALE" : "FEMALE" ,
-                    student.getStudentClass()); //student.getGrades());
-            count++;
-        }
-        System.out.println();
-    }
+    public String infoName(Long student_ID) { return idbops.infoName(student_ID); }
 
-    public void sortStudentsClass() {
+    public Integer infoGender(Long student_ID) { return idbops.infoGender(student_ID); }
 
-        ArrayList<Student> students = idbops.studentList();
-        int count = 0;
-        Collections.sort(students, new Comparator<Student>() {
-            public int compare(Student s1, Student s2) {
-                return s1.getStudentClass().compareTo(s2.getStudentClass());
-            }
-        });
-        System.out.printf("%-10s %-21s %-21s %-21s %-21s \n", "STUDENT ID:", "NAME:", "GENDER:", "CLASS:", "GRADES:");
-        for (Student student : students) {
-            System.out.printf("%d. %-12s %-21s %-21s %-21s %s \n", count + 1, student.getStudent_id(), student.getStudentName(), student.getStudentGender() == 0? "MALE" : "FEMALE" ,
-                    student.getStudentClass()); //student.getGrades());
-            count++;
-        }
-        System.out.println();
-    }
+    public String infoClass(Long student_ID){ return idbops.infoClass(student_ID); }
 
-
-    public void sortStudentsAverage() {
-        System.out.println("Work in progress...");
-/*
-        ArrayList<Student> students = idbops.studentList();
-        int count = 0;
-        Collections.sort(students, new Comparator<Student>() {
-            public int compare(Student s1, Student s2) {
-                return s2.getGrades(). - s1.getGrades();
-            }
-        });
-        System.out.printf("%-10s %-21s %-21s %-21s %-21s \n", "STUDENT ID:", "NAME:", "GENDER:", "CLASS:", "GRADES:");
-        for (Student student : students) {
-            System.out.printf("%d. %-12s %-21s %-21s %-21s %s \n", count + 1, student.getStudent_id(), student.getStudentName(), student.getStudentGender(),
-                    student.getStudentClass(), student.getGrades());
-            count++;
-        }
-        System.out.println();
-        */
-    }
-
+    public void test(){ idbops.test();}
 }
 

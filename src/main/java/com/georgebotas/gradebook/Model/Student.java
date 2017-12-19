@@ -8,16 +8,11 @@ import java.util.List;
 @Table(name = "students")
 public class Student {
 
+    private Long student_id;
     private String studentName;
     private Integer studentGender;
     private String studentClass;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long student_id;
-
-    @OneToMany(mappedBy="student")
-    private List<Grades> grades = new ArrayList<Grades>();
+    private List<Subject> subjects= new ArrayList<Subject>();
 
     public Student() { }
 
@@ -27,37 +22,33 @@ public class Student {
         this.studentClass = studentClass;
     }
 
+    public Student(String studentName, Integer studentGender, String studentClass, List<Subject> subjects) {
+        this.studentName = studentName;
+        this.studentGender = studentGender;
+        this.studentClass = studentClass;
+        this.subjects = subjects;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getStudent_id() { return student_id; }
+
+    public void setStudent_id(Long student_id) { this.student_id = student_id; }
+
     public String getStudentName() { return studentName; }
 
     public void setStudentName(String studentName) { this.studentName = studentName; }
 
     public Integer getStudentGender() { return studentGender; }
 
-    public void setStudentGender(Integer studentGender) {
-        this.studentGender = studentGender;
-    }
+    public void setStudentGender(Integer studentGender) { this.studentGender = studentGender; }
 
-    public String getStudentClass() {
-        return studentClass;
-    }
+    public String getStudentClass() { return studentClass; }
 
-    public void setStudentClass(String studentClass) {
-        this.studentClass = studentClass;
-    }
+    public void setStudentClass(String studentClass) { this.studentClass = studentClass; }
 
-    public Long getStudent_id() {
-        return student_id;
-    }
+    @OneToMany(mappedBy="student")
+    public List<Subject> getSubjects() { return subjects; }
 
-    public void setStudent_id(Long student_id) {
-        this.student_id = student_id;
-    }
-
-    public List<Grades> getGrades() {
-        return grades;
-    }
-
-    public void setGrades(List<Grades> grades) {
-        this.grades = grades;
-    }
+    public void setSubjects(List<Subject> subjects) { this.subjects = subjects; }
 }

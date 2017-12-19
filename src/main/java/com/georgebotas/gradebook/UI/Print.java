@@ -3,15 +3,31 @@ package com.georgebotas.gradebook.UI;
 public class Print {
 
     public static void mainMenu() {
-        String mainMenu = "THE GRADEBOOK: PLEASE CHOOSE AN OPTION BY ENTERING THE CORESPONDING NUMBER:\n\n" +
-                "1. SHOW GRADEBOOK\n2. CREATE NEW STUDENT\n3. EDIT A STUDENT\n4. REMOVE A STUDENT\n5. ADD A NEW GRADE\n6. EDIT A GRADE\n7. REMOVE A GRADE" +
-                "\n8. SORT GRADEBOOK\n9. EXIT";
+        String mainMenu = "THE GRADEBOOK: PLEASE CHOOSE AN OPTION BY ENTERING THE CORRESPONDING NUMBER:\n\n" +
+                "1. SHOW GRADEBOOK\n2. CREATE NEW STUDENT\n3. EDIT A STUDENT\n4. REMOVE A STUDENT\n5. GRADES AND SUBJECT MENU" +
+                "\n6. SORT GRADEBOOK\n7. EXIT";
         System.out.println(mainMenu);
     }
 
+    public static void editMenu() {
+        String editMenu = "CHOOSE AN OPTION BY ENTERING THE CORRESPONDING NUMBER:\n1. EDIT STUDENT'S NAME\n2. EDIT STUDENT'S GENDER\n3. EDIT STUDENT'S CLASS";
+        System.out.println(editMenu);
+    }
+
+    public static void gradesMenu() {
+        String editMenu = "CHOOSE AN OPTION BY ENTERING THE CORRESPONDING NUMBER:\n\n1. SHOW ALL GRADES AND AVERAGES FOR A SPECIFIC STUDENT\n2. ADD A NEW GRADE\n3. EDIT GRADE\n" +
+                "4. REMOVE GRADE\n5. SHOW AVAILABLE SUBJECTS\n6. CREATE A SUBJECT\n7. EDIT A SUBJECT\n8. REMOVE A SUBJECT";
+        System.out.println(editMenu);
+    }
+
+    public static void sortMenu() {
+        String sortMenu = "CHOOSE THE TYPE OF SORTING:\n 1. SORT BY STUDENT NAME\n 2. SORT BY STUDENT GENDER\n 3. SORT BY CLASS\n 4. SORT BY AVERAGES";
+        System.out.println(sortMenu);
+    }
+
     public static void createName() {
-        String screateName = "ENTER THE STUDENT'S NAME:";
-        System.out.println(screateName);
+        String createName = "ENTER THE STUDENT'S NAME:";
+        System.out.println(createName);
     }
 
     public static void selectGender() {
@@ -22,11 +38,6 @@ public class Print {
     public static void createClass() {
         String createClass = "ENTER THE STUDENT'S CLASS:";
         System.out.println(createClass);
-    }
-
-    public static void editMenu() {
-        String editMenu = "CHOOSE AN OPTION BY ENTERING THE CORESPONDING NUMBER:\n 1. EDIT STUDENT'S NAME\n 2. EDIT STUDENT'S GENDER\n 3. EDIT STUDENT'S CLASS";
-        System.out.println(editMenu);
     }
 
     public static void editName() {
@@ -89,19 +100,9 @@ public class Print {
         System.out.println(addGrade);
     }
 
-    public static void enterSubject() {
-        String enterSubject = "ENTER THE SUBJECT:";
-        System.out.println(enterSubject);
-    }
-
     public static void removeGrade() {
-        String removeGrade = "SELECT THE GRADE YOU'D LIKE TO REMOVE:";
+        String removeGrade = "SELECT THE GRADE YOU'D LIKE TO REMOVE BY ENTERING IT'S ID:";
         System.out.println(removeGrade);
-    }
-
-    public static void sortMenu() {
-        String sortMenu = "CHOOSE THE TYPE OF SORTING:\n 1. SORT BY STUDENT NAME\n 2. SORT BY STUDENT GENDER\n 3. SORT BY CLASS\n 4. SORT BY GRADES";
-        System.out.println(sortMenu);
     }
 
     public static void sortName() {
@@ -125,8 +126,28 @@ public class Print {
         System.out.println(sortedGrades);
     }
 
-    public static void exception() {
+    public static void errorMessage() {
         String exception = "AN EXCEPTION OCCURED. THE PROGRAM WILL NOW EXIT.";
         System.out.println(exception);
+    }
+
+    public static void subjectCreate() {
+        String subjectCreate = "ENTER THE NAME FOR THE SUBJECT:";
+        System.out.println(subjectCreate);
+    }
+
+    public static void subjectSelect() {
+        String subjectSelect = "SELECT A SUBJECT BY ENTERING IT'S ID:";
+        System.out.println(subjectSelect);
+    }
+
+    public static void subjectEdit() {
+        String subjectEdit = "ENTER A NEW NAME FOR THE SUBJECT:";
+        System.out.println(subjectEdit);
+    }
+
+    public static void subjectDelete() {
+        String subjectEdit = "SELECT THE SUBJECT YOU'D LIKE TO REMOVE BY ENTERING IT'S ID:";
+        System.out.println(subjectEdit);
     }
 }
